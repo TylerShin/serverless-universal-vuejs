@@ -6,7 +6,8 @@ const config = {
     main: "./src/main.ts",
   },
   output: {
-    filename: "./dst/[name].[hash].js",
+    path: __dirname + "/dst",
+    filename: "bundle.js",
   },
   devtool: "source-map",
   resolve: {
@@ -15,6 +16,7 @@ const config = {
       vue$: "vue/dist/vue.esm.js",
     },
   },
+  target: "node",
   module: {
     rules: [
       {
@@ -57,22 +59,9 @@ const config = {
       template: "./src/index.html",
     }),
     new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify("development"),
-      },
+      "process.env.NODE_ENV": JSON.stringify("production"),
     }),
   ],
-  devServer: {
-    port: 8080,
-    host: "localhost",
-    historyApiFallback: true,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000,
-    },
-    contentBase: "./src",
-    open: true,
-  },
 };
 
 module.exports = config;
